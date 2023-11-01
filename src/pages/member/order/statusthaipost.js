@@ -49,17 +49,17 @@ const TrackStatus = ({ TrackNo }) => {
             //ตกแต่ง Status
             const statusHtml = responseItems.map((element, index) => (
               <Grid container key={index}>
-                <Grid item>
-                  <Typography>
-                    สถานะ {element.status_description}
-                  </Typography>
-                  <LocalShippingIcon />
+                <Grid item xs={0}>
+                  <LocalShippingIcon sx={{ color: 'dark' }} />
                 </Grid>
-                <Grid item>
-                  <Typography>สถานที่ {element.location}</Typography>
+                <Grid item xs={5} sm={5} md={6} lg={4}>
+                  <Typography>{element.status_description}</Typography>
                 </Grid>
-                <Grid item>
-                  <Typography>เวลา {element.status_date}</Typography>
+                <Grid item xs={3} sm={1} md={4} lg={1}>
+                  <Typography>{element.location}</Typography>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={5}>
+                  <Typography>{element.status_date.slice(0, 10)}</Typography>
                 </Grid>
               </Grid>
             ))

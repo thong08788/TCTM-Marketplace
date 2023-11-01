@@ -205,23 +205,7 @@ const TrackingStatus = ({ productdata, updateProductData, trackNo }) => {
                             Detail
                           </Button>
                         </Grid>
-                        <Grid item xs={12} md={2}>
-                          <Button
-                            fullWidth
-                            variant='contained'
-                            color='success'
-                            disabled={
-                              item.invoice_status === '0' ||
-                              item.invoice_status === '1' ||
-                              item.invoice_status === '2' ||
-                              item.invoice_status === '3' ||
-                              item.invoice_status === '5'
-                            }
-                            onClick={event => handleConfirmProduct(event, item.invoice_id)}
-                          >
-                            Confirm
-                          </Button>
-                        </Grid>
+                        
                       </Grid>
                     </Box>
                   </Grid>

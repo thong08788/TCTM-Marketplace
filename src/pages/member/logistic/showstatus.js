@@ -25,7 +25,7 @@ import axios from 'axios'
 import Total from 'src/pages/member/order/details_total'
 import Delivery from 'src/pages/member/order/delivery_address'
 import Paymant from 'src/pages/member/order/payment_details'
-import TrackingStatus from './thaipostatus'
+import TrackingStatus from './trackorder'
 
 //** Auth check
 import { withAuth } from 'src/@core/utils/AuthCheck'

@@ -280,8 +280,15 @@ const Payment = ({ usertype, invoice_id, orderdata, receipt }) => {
               Submit
             </Button>
           </Grid>
-          <Grid item xs={12} sm={12} md={3} sx={{ textAlign: { xs: 'left', sm: 'right' } }}>
-            <TrackStatus TrackNo={orderdata.tracking_number} />
+          <Grid item xs={12} sm={9}>
+            <Typography variant='subtitle1' sx={{ textAlign: 'start' }}>
+              <Grid item xs={12} sm={12} md={6}>
+                <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+                  Tracking Status
+                </Typography>
+              </Grid>
+              <TrackStatus TrackNo={orderdata.tracking_number} />
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <Box>
@@ -318,6 +325,11 @@ const Payment = ({ usertype, invoice_id, orderdata, receipt }) => {
           <Grid item xs={12} sm={9}>
             <Typography variant='subtitle1' sx={{ textAlign: 'start' }}>
               {orderdata.tracking_number || 'Wait payment'}
+              <Grid item xs={12} sm={12} md={6}>
+                <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+                  Tracking Status
+                </Typography>
+              </Grid>
               <TrackStatus TrackNo={orderdata.tracking_number} />
             </Typography>
           </Grid>

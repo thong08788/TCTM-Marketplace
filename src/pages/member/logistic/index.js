@@ -14,7 +14,7 @@ import Shopping from 'mdi-material-ui/Shopping'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 
 // ** Component Import
-import TrackingStatus from 'src/pages/market/orders/thaipostatus'
+import TrackingStatus from 'src/pages/member/logistic/trackorder'
 import ShowOrderReq from 'src/pages/member/order/showorderReq'
 
 // ** Axios Imports
@@ -24,17 +24,14 @@ import axios from 'axios'
 import { withAuth } from 'src/@core/utils/AuthCheck'
 
 const MyOrderPage = () => {
-
-    const router = useRouter() // use router
-    const { invoice_id, usertype } = router.query
+  const router = useRouter() // use router
+  const { invoice_id, usertype } = router.query
 
   // ตัวแปรเก็บค่าข้อมูล
   const [userId, setUserId] = useState('') // ข้อมูล user_Id
   const [productdata, setProductData] = useState('') // product data
   const [trackNo, setTrackNo] = useState('')
   const [invoiceId, setInvoiceId] = useState('')
-  
-
 
   // รับค่าข้อมูล จาก local Storage
   useEffect(() => {
@@ -60,7 +57,7 @@ const MyOrderPage = () => {
 
     fetchData()
   }, [invoiceId])
-  console.log('invoice_id',invoiceId)
+  console.log('invoice_id', invoiceId)
 
   // เก็บค่าข้อมูลลง Api
   useEffect(() => {
@@ -103,7 +100,6 @@ const MyOrderPage = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  
 
   return (
     <Container maxWidth='xl'>
@@ -153,7 +149,7 @@ const MyOrderPage = () => {
             </Box>
             <TabPanel value='1'>
               <Box sx={{ width: '100%', typography: 'body1' }}>
-                  <TrackingStatus productdata={productdata} updateProductData={updateProductData} trackNo={trackNo} />
+                <TrackingStatus productdata={productdata} updateProductData={updateProductData} trackNo={trackNo} />
               </Box>
             </TabPanel>
             <TabPanel value='2'>
