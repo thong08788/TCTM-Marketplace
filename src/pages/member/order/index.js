@@ -24,7 +24,7 @@ import { withAuth } from 'src/@core/utils/AuthCheck'
 import Total from './total'
 import Payment from './payment'
 
-import TablePayment from './TablePayment'
+import TablePayment from './tablepayment'
 
 const Indexpayment = () => {
   // ใช้งาน Router

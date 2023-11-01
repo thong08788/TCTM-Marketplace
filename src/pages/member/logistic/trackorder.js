@@ -1,26 +1,36 @@
-// ** React Imports
-import React, { useEffect, useState } from 'react'
-
 // ** Next Imports
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useState,useEffect } from 'react'
 
 // ** Material UI Imports
 import {
   Box,
+  Breadcrumbs,
   Button,
   Card,
   CardMedia,
   Container,
   Divider,
+  FormControl,
   Grid,
+  Hidden,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Tab,
+  TextField,
   Typography
 } from '@mui/material'
 
 // ** axios Import
 import axios from 'axios'
 
-const ShowOrder = ({ productdata, updateProductData }) => {
+const TrackingStatus = ({ productdata, updateProductData, trackNo }) => {
+  //แสดงสถานะการขนส่ง
+  const [status, setStatus] = useState([])
+
   const router = useRouter() //use router
 
   // นำเข้าตัวsweetalert2
@@ -39,7 +49,7 @@ const ShowOrder = ({ productdata, updateProductData }) => {
 
   // ฟังชัน ย้ายไปหน้า ดูรายละเอียดผลิตภัณ
   const handleDetailPage = invoice_id => {
-    router.push(`/member/order/ordersdetail/?invoice_id=${invoice_id}&usertype=${usertype}`)
+    router.push(`/market/orders/showstatus/?invoice_id=${invoice_id}&usertype=${usertype}`)
   }
 
   // ฟังชันยืนยันข้อมูล
@@ -130,6 +140,7 @@ const ShowOrder = ({ productdata, updateProductData }) => {
                         <Box sx={{ display: 'flex', flexDirection: 'column', padding: '7px 14px 0px' }}>
                           <Typography variant='body1' fontWeight='' fontSize='1.0rem' color='#000'>
                             Product: {item.product_name}
+                            {status}
                           </Typography>
                           <Typography variant='body1' fontWeight='' fontSize='1.0rem' color='#000'>
                             Amount: {item.amount}
@@ -173,7 +184,7 @@ const ShowOrder = ({ productdata, updateProductData }) => {
                     <Box sx={{ width: '100%', padding: 4 }}>
                       <Grid container spacing={2} justifyContent='flex-end'>
                         <Grid item xs={12} md={2}>
-                          <Button
+                          {/* <Button
                             fullWidth
                             variant='contained'
                             color='primary'
@@ -187,37 +198,14 @@ const ShowOrder = ({ productdata, updateProductData }) => {
                             onClick={() => handleApprovePage(item.sub_id, item.invoice_id)}
                           >
                             Attach file
-                          </Button>
+                          </Button> */}
                         </Grid>
                         <Grid item xs={12} md={2}>
-                          <Button
-                            fullWidth
-                            variant='outlined'
-                            disabled={
-                              item.invoice_status === '0' || item.invoice_status === '1' || item.invoice_status === '2'
-                            }
-                            onClick={() => handleDetailPage(item.invoice_id)}
-                          >
+                          <Button fullWidth variant='outlined' onClick={() => handleDetailPage(item.invoice_id)}>
                             Detail
                           </Button>
                         </Grid>
-                        <Grid item xs={12} md={2}>
-                          <Button
-                            fullWidth
-                            variant='contained'
-                            color='success'
-                            disabled={
-                              item.invoice_status === '0' ||
-                              item.invoice_status === '1' ||
-                              item.invoice_status === '2' ||
-                              item.invoice_status === '3' ||
-                              item.invoice_status === '5'
-                            }
-                            onClick={event => handleConfirmProduct(event, item.invoice_id)}
-                          >
-                            Confirm
-                          </Button>
-                        </Grid>
+                        
                       </Grid>
                     </Box>
                   </Grid>
@@ -231,4 +219,4 @@ const ShowOrder = ({ productdata, updateProductData }) => {
   )
 }
 
-export default ShowOrder
+export default TrackingStatus

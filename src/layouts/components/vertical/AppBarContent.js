@@ -11,6 +11,7 @@ import { Box, CardMedia, FormControl, Grid, IconButton, InputAdornment, Outlined
 // ** Material-UI Icons Imports
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 
 // ** Material Design Icons Imports
 import Magnify from 'mdi-material-ui/Magnify'
@@ -120,6 +121,11 @@ const AppBarContent = props => {
                   <Link href='/member/order/myoder/' passHref>
                     <IconButton>
                       <ShoppingBagIcon sx={{ color: 'text.primary' }} />
+                    </IconButton>
+                  </Link>
+                  <Link href='/member/logistic' passHref>
+                    <IconButton>
+                      <LocalShippingIcon sx={{ color: 'text.primary' }} />
                     </IconButton>
                   </Link>
                   <NotificationDropdown />
