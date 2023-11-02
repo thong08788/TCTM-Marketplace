@@ -10,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 // ** Material UI Imports
 import {
@@ -64,6 +65,14 @@ const RegisterPage = () => {
     password: '',
     showPassword: false
   })
+
+  // คอมโพเนนต์ของ reCAPTCHA
+  const [recaptchaValue, setRecaptchaValue] = useState(false)
+
+  // สร้างฟังก์ชันเมื่อ reCAPTCHA ถูกยืนยัน
+  const handleRecaptchaChange= () => {
+    setRecaptchaValue(true)
+  }
 
   // ** Hook
   const router = useRouter()
@@ -163,6 +172,19 @@ const RegisterPage = () => {
   const handleSubmitData = event => {
     event.preventDefault()
     setIsSubmitted(true)
+
+    // ตรวจสอบว่า reCAPTCHA ถูกต้อง
+    if (!recaptchaValue) {
+      // กระทำเมื่อ reCAPTCHA ไม่ถูกต้อง (ตัวอย่าง: แสดงข้อความหรือบล็อกการส่ง)
+      console.log('Please complete the reCAPTCHA.')
+      
+      return
+    }
+
+    // ตรวจสอบค่าว่างอื่นๆ และดำเนินการตามปกติ
+    // ...
+
+    
 
     // ตรวจสอบค่าว่างก่อนส่ง
     const fieldsToCheck = [user, password, email, firstname, lastname, company, address, tel, date]
@@ -403,6 +425,11 @@ const RegisterPage = () => {
                 }
               }}
               sx={{ marginBottom: 4 }}
+            />
+            {/* เพิ่ม reCAPTCHA ในแบบฟอร์ม */}
+            <ReCAPTCHA
+              sitekey='6Lfu5-ooAAAAAMGil0g9-Q7SKKQKTmntoYO6arEu' // ใช้ Site Key ที่คุณได้จาก ReCAPTCHA
+              onChange={handleRecaptchaChange}
             />
             {/* ---------- Checkbox ---------- */}
             <FormControlLabel
