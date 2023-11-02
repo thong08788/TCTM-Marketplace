@@ -12,6 +12,7 @@ const TrackStatus = ({ TrackNo }) => {
     setTrackingValue(TrackNo)
   }, [TrackNo])
 
+  console.log(TrackNo)
   useEffect(() => {
     const handleTracking = async () => {
       try {

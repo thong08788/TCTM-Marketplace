@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
+import { Box ,FormData} from 'mdi-material-ui'
+import { FormControl } from '@mui/material'
 
 const MyPage = () => {
   const [loading, setLoading] = useState(false)
@@ -62,7 +64,7 @@ const MyPage = () => {
   }, [])
 
   return (
-    <form onSubmit={handleSubmit}>
+    <FormControl onSubmit={handleSubmit}>
       <label>
         Card details:
         <div id='card-element'></div>
@@ -70,7 +72,7 @@ const MyPage = () => {
       <button type='submit' disabled={loading}>
         Pay
       </button>
-    </form>
+    </FormControl>
   )
 }
 

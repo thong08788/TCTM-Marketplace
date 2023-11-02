@@ -49,7 +49,7 @@ const TrackingStatus = ({ productdata, updateProductData, trackNo }) => {
 
   // ฟังชัน ย้ายไปหน้า ดูรายละเอียดผลิตภัณ
   const handleDetailPage = invoice_id => {
-    router.push(`/market/orders/showstatus/?invoice_id=${invoice_id}&usertype=${usertype}`)
+    router.push(`/member/logistic/showstatus/?invoice_id=${invoice_id}&usertype=${usertype}`)
   }
 
   // ฟังชันยืนยันข้อมูล

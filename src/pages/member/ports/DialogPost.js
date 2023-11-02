@@ -9,6 +9,7 @@ import { Box, Button, Dialog, Card, CardContent, Divider, Grid, TextField, Typog
 
 // ** Axios import
 import axios from 'axios'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const DialogPost = ({ open, handleClose, userId }) => {
   const Route = useRouter()
@@ -37,9 +38,29 @@ const DialogPost = ({ open, handleClose, userId }) => {
     setDescription(event.target.value)
   }
 
+  // คอมโพเนนต์ของ reCAPTCHA
+  const [recaptchaValue, setRecaptchaValue] = useState(null)
+
   // ฟังก์ชัน Insert Data
   const handleInsertSubmit = e => {
     e.preventDefault()
+
+    // ตรวจสอบว่า reCAPTCHA ถูกต้อง
+    if (!recaptchaValue) {
+      // กระทำเมื่อ reCAPTCHA ไม่ถูกต้อง (ตัวอย่าง: เปลี่ยนสี reCAPTCHA เป็นแดง)
+      const recaptchaElement = document.querySelector('.grecaptcha-badge')
+      if (recaptchaElement) {
+        recaptchaElement.style.backgroundColor = 'red'
+      }
+
+      // แสดงข้อความหรือบล็อกการส่ง
+      SAlert.fire({
+        icon: 'error',
+        title: 'Please complete the reCAPTCHA.'
+      })
+
+      return
+    }
 
     // ตรวจสอบค่าว่างใน TextField
     if (!title || !description) {
@@ -47,19 +68,19 @@ const DialogPost = ({ open, handleClose, userId }) => {
       SAlert.fire({
         icon: 'error',
         title: 'You did not fill in all the information...',
-        text: 'Please fill in all the information.!'
+        text: 'Please fill in all the information!'
       })
 
       return
     }
 
+    // ส่งข้อมูลไปยังเซิร์ฟเวอร์หลังจากยืนยัน reCAPTCHA
     const data = {
       user_id: userId,
       req_header: title,
-      req_description: description
+      req_description: description,
+      recaptchaValue: recaptchaValue
     }
-
-    console.log(data)
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API}TCTM.requirements.postrequirement`, data)
@@ -125,6 +146,10 @@ const DialogPost = ({ open, handleClose, userId }) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <ReCAPTCHA
+                    sitekey='6Lfu5-ooAAAAAMGil0g9-Q7SKKQKTmntoYO6arEu' // ใช้ Site Key ที่คุณได้จาก ReCAPTCHA
+                    onChange={value => setRecaptchaValue(value)}
+                  />
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Button
                       variant='contained'
