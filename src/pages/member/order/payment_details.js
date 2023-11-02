@@ -192,6 +192,7 @@ const Payment = ({ usertype, invoice_id, orderdata, receipt }) => {
     } catch (error) {
       console.error('An error occurred:', error)
     }
+    
   }
 
   return (

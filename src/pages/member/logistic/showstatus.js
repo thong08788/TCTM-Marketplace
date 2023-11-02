@@ -57,6 +57,7 @@ const Show_Status = () => {
 
     fetchData()
   }, [invoice_id])
+console.log(localStorage)
 
   return (
     <Container maxWidth='xl'>
