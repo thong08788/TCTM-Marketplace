@@ -149,6 +149,10 @@ const Payment = ({ usertype, invoice_id, orderdata, receipt }) => {
     } catch (error) {
       console.log(error)
     }
+    Swal.fire({
+      icon: 'success',
+      title: 'Confirm Data Success'
+    })
   }
 
   // ฟังชันเก็บค่าตัวแปร Tracking
@@ -192,7 +196,6 @@ const Payment = ({ usertype, invoice_id, orderdata, receipt }) => {
     } catch (error) {
       console.error('An error occurred:', error)
     }
-    
   }
 
   return (
@@ -211,17 +214,10 @@ const Payment = ({ usertype, invoice_id, orderdata, receipt }) => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <img
-            src={
-              orderdata.invoice_file_name === null ||
-              orderdata.invoice_file_name === undefined ||
-              orderdata.invoice_file_name === '-'
-                ? '/payment/Nodata/Nodata.jpeg'
-                : `/payment/${orderdata.invoice_file_name}`
-            }
-            style={{ maxWidth: '40%', height: 'auto' }}
-            alt='Payment Details'
-          />
+          <Typography variant='subtitle1' sx={{ textAlign: 'start' }}>
+            {' '}
+            Stripe Payment Gateway{' '}
+          </Typography>
         </Grid>
       </Grid>
       <hr />
@@ -282,14 +278,12 @@ const Payment = ({ usertype, invoice_id, orderdata, receipt }) => {
             </Button>
           </Grid>
           <Grid item xs={12} sm={9}>
-            <Typography variant='subtitle1' sx={{ textAlign: 'start' }}>
-              <Grid item xs={12} sm={12} md={6}>
-                <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
-                  Tracking Status
-                </Typography>
-              </Grid>
-              <TrackStatus TrackNo={orderdata.tracking_number} />
-            </Typography>
+            <Grid item xs={12} sm={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Typography variant='h6' sx={{ fontWeight: 'bold' }}>
+                Tracking Status
+              </Typography>
+            </Grid><Grid item>
+            <TrackStatus TrackNo={orderdata.tracking_number} /></Grid>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <Box>
