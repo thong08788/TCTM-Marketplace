@@ -256,7 +256,7 @@ const RegisterProduct = ({ product, setProduct, productCategories, onUploadImage
   }
 
   const handleProductOptionGroupChange = (e, optionGroupId, col) => {
-    console.log('col: ', col)
+    console.log('column: ', col)
 
     const updatedOptionGroups = product.items.map(optionGroup => {
       if (optionGroup.optionGroupId === optionGroupId) {
@@ -767,7 +767,9 @@ const RegisterProduct = ({ product, setProduct, productCategories, onUploadImage
                     fullWidth
                     label='Price'
                     type='number'
-                    id={`product-item-group-price-${group.optionGroupId}`} // ราคาสินค้า
+                    
+                    // -------------------ราคาสินค้า-----------------------
+                    id={`product-item-group-price-${group.optionGroupId}`}
                     variant='outlined'
                     value={group.optionGroupPrice}
                     onChange={e => handleItemPriceChange(e, group.optionGroupId)}
@@ -779,6 +781,8 @@ const RegisterProduct = ({ product, setProduct, productCategories, onUploadImage
                     fullWidth
                     label='Quantity'
                     type='number'
+
+                    // -------------------จำนวนสินค้า-----------------------
                     id={`product-item-group-quantity-${group.optionGroupId}`} // จำนวนสินค้า
                     variant='outlined'
                     value={group.optionGroupQuantity}

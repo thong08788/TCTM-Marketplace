@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useRef } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -10,6 +10,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
+import ReCAPTCHA from 'react-google-recaptcha'
+import ReactDOM from 'react-dom'
 
 // ** Material UI Imports
 import {
@@ -64,6 +66,39 @@ const RegisterPage = () => {
     password: '',
     showPassword: false
   })
+
+  // คอมโพเนนต์ของ reCAPTCHA
+   const recaptchaRef = useRef(null)
+   const [isVerified, setIsVerified] = useState(false)
+
+  // สร้างฟังก์ชันเมื่อ reCAPTCHA ถูกยืนยัน
+  const verifyCaptcha = async token => {
+    try {
+      const res = await axios.post(
+        `https://www.google.com/recaptcha/api/siteverify?secret=6Lfu5-ooAAAAAMKpuS9SL8rj7SE9z1OgoQ02Wcat&response=${token}`
+      )
+
+      if (res.data.success) {
+        return 'success!'
+      } else {
+        throw new Error('Failed Captcha')
+      }
+    } catch (error) {
+      console.log(error);
+      throw error
+
+    }
+  }
+
+  const handleCaptchaSubmission = async () => {
+    try {
+      const token = await recaptchaRef.current.executeAsync()
+      await verifyCaptcha(token)
+      setIsVerified(true)
+    } catch (error) {
+      setIsVerified(false)
+    }
+  }
 
   // ** Hook
   const router = useRouter()
@@ -163,6 +198,17 @@ const RegisterPage = () => {
   const handleSubmitData = event => {
     event.preventDefault()
     setIsSubmitted(true)
+
+    // ตรวจสอบว่า reCAPTCHA ถูกต้อง
+    // if (!isVerified) {
+    //   // กระทำเมื่อ reCAPTCHA ไม่ถูกต้อง (ตัวอย่าง: แสดงข้อความหรือบล็อกการส่ง)
+    //   console.log('Please complete the reCAPTCHA.')
+
+    //   return
+    // }
+
+    // ตรวจสอบค่าว่างอื่นๆ และดำเนินการตามปกติ
+    // ...
 
     // ตรวจสอบค่าว่างก่อนส่ง
     const fieldsToCheck = [user, password, email, firstname, lastname, company, address, tel, date]
@@ -404,6 +450,12 @@ const RegisterPage = () => {
               }}
               sx={{ marginBottom: 4 }}
             />
+            {/* เพิ่ม reCAPTCHA ในแบบฟอร์ม */}
+            <ReCAPTCHA
+              sitekey='6Lfu5-ooAAAAAMGil0g9-Q7SKKQKTmntoYO6arEu'
+              onChange={handleCaptchaSubmission}
+              ref={recaptchaRef}
+            />
             {/* ---------- Checkbox ---------- */}
             <FormControlLabel
               control={<Checkbox />}
@@ -424,6 +476,8 @@ const RegisterPage = () => {
               fullWidth
               variant='contained'
               onClick={handleSubmitData}
+
+              // disabled={!isVerified}
               sx={{
                 backgroundColor: 'primary.main',
                 color: '#fff',

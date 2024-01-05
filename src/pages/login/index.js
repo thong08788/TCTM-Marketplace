@@ -160,6 +160,7 @@ const LoginPage = () => {
             const EmailData = response.data.message.Data[0].user_email
             const MemberId = response.data.message.Data[0].member_id
             const UserStatus = response.data.message.Data[0].user_status
+            console.log('userData', userData)
 
             setResponseData(userData)
 

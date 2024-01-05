@@ -11,6 +11,7 @@ import { Box, CardMedia, FormControl, Grid, IconButton, InputAdornment, Outlined
 // ** Material-UI Icons Imports
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 
 // ** Material Design Icons Imports
 import Magnify from 'mdi-material-ui/Magnify'
@@ -18,6 +19,7 @@ import Magnify from 'mdi-material-ui/Magnify'
 // ** Layouts Imports
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
 const AppBarContent = props => {
   // ** State สำหรับการค้นหา
@@ -119,7 +121,12 @@ const AppBarContent = props => {
                   </Link>
                   <Link href='/member/order/myoder/' passHref>
                     <IconButton>
-                      <ShoppingBagIcon sx={{ color: 'text.primary' }} />
+                      <ShoppingCartIcon sx={{ color: 'text.primary' }} />
+                    </IconButton>
+                  </Link>
+                  <Link href='/member/logistic' passHref>
+                    <IconButton>
+                      <LocalShippingIcon sx={{ color: 'text.primary' }} />
                     </IconButton>
                   </Link>
                   <NotificationDropdown />
